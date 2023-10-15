@@ -1,10 +1,17 @@
 import express from "express";
 const app = express()
-const PORT = process.env.PORT || 5000
+import { CONFIG } from './config/index.js'
+import cors from 'cors'
+import routes from './routes/api.js'
 
-app.get('/', (req, res, next) => {
-    res.send('welcome to express server')
-})
+const PORT = CONFIG.PORT || 5000
+
+// middlewares
+app.use(express.json())
+app.use(cors())
+
+// routes
+app.use('/api', routes)
 
 app.listen(PORT, (err) => {
     if (err) {
